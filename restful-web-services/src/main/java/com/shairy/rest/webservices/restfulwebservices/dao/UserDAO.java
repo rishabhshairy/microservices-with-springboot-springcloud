@@ -1,6 +1,7 @@
 package com.shairy.rest.webservices.restfulwebservices.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.shairy.rest.webservices.restfulwebservices.beans.User;
 
@@ -9,6 +10,8 @@ public interface UserDAO {
 
 	User save(User user);
 
-	User findOne(int id);
+	Optional<User> findOne(int id);
+	
+	User deleteById(int id);
 
 }
