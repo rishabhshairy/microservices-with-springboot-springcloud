@@ -6,8 +6,12 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,14 +39,18 @@ public class UserController {
 	}
 
 	@GetMapping("/users/{id}")
-	public User findById(@PathVariable int id) {
+	public EntityModel<User> findById(@PathVariable int id) {
 		Optional<User> user = userDAO.findOne(id);
 		logger.debug(user.toString());
 		if (user.isEmpty()) {
 			throw new UserNotFoundException("id = " + id);
 
 		}
-		return user.get();
+		// Adding link to get all users
+		EntityModel<User> model = EntityModel.of(user.get());
+		WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).getAllUsers());
+		model.add(link.withRel("all-users"));
+		return model;
 	}
 
 	@PostMapping("/users")
@@ -56,10 +64,10 @@ public class UserController {
 	}
 
 	@DeleteMapping("/user/{id}")
-	public ResponseEntity<Object> deleteUser(@PathVariable int id){
+	public ResponseEntity<Object> deleteUser(@PathVariable int id) {
 		User user = userDAO.deleteById(id);
-		if (user==null) {
-			throw new UserNotFoundException("id = "+id);
+		if (user == null) {
+			throw new UserNotFoundException("id = " + id);
 		}
 		return ResponseEntity.ok(user);
 	}
