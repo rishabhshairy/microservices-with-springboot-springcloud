@@ -50,6 +50,11 @@ public class PersonController {
 		return new PersonV2(new Name("Jack", "Holmes"));
 	}
 	
+	/**
+	 * Mime type versioning
+	 * @return
+	 */
+	
 	@GetMapping(value = "person/produces", produces = "application/vnd.rshairy+json")
 	public PersonV1 producesV1() {
 		return new PersonV1("Jack");
