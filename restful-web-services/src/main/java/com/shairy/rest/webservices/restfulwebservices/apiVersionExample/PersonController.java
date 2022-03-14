@@ -45,7 +45,7 @@ public class PersonController {
 		return new PersonV1("Jack");
 	}
 
-	@GetMapping(value = "person/header", headers = "X-API-VERSION=1")
+	@GetMapping(value = "person/header", headers = "X-API-VERSION=2")
 	public PersonV2 headerV2() {
 		return new PersonV2(new Name("Jack", "Holmes"));
 	}
@@ -55,12 +55,12 @@ public class PersonController {
 	 * @return
 	 */
 	
-	@GetMapping(value = "person/produces", produces = "application/vnd.rshairy+json")
+	@GetMapping(value = "person/produces", produces = "application/vnd.rshairy-v1+json")
 	public PersonV1 producesV1() {
 		return new PersonV1("Jack");
 	}
 
-	@GetMapping(value = "person/produces", produces = "application/vnd.rshairy+json")
+	@GetMapping(value = "person/produces", produces = "application/vnd.rshairy-v2+json")
 	public PersonV2 producesV2() {
 		return new PersonV2(new Name("Jack", "Holmes"));
 	}
