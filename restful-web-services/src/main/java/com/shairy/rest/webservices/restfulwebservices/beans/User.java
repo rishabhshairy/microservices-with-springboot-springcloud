@@ -1,10 +1,12 @@
 package com.shairy.rest.webservices.restfulwebservices.beans;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
@@ -23,7 +25,8 @@ public class User {
 	//@Past
 	private Date dateOfBirth;
 
-	
+	@OneToMany(mappedBy = "user")
+	private List<Post> posts;
 	
 	public User() {
 		super();
@@ -58,6 +61,15 @@ public class User {
 
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+	}
+	
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 
 	@Override
