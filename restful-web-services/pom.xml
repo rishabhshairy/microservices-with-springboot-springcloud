@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.shairy.rest.webservices</groupId>
-	<artifactId>restful-web-services</artifactId>
+	<artifactId>restful-web-services-basics</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>restful-web-services</name>
+	<name>restful-web-services-basics</name>
 	<description>Project for learning REST WebServices</description>
 	<properties>
 		<java.version>11</java.version>
