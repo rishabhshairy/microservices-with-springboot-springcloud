@@ -5,7 +5,10 @@ Learning Udemy Course : Master Microservices with Spring Boot and Spring Cloud
 1.restful-web-services --> contains the code for basic understanding of how RESTful webservices work
 
 ### Standard Ports for All Application
-Limits Microservice             8080,8081...
-Spring Cloud Config Server      8888
-Currency-Exchange               8000,8001...
-Currency-Conversion             8100,8101...
+Limits Microservice             `8080,8081...`
+
+Spring Cloud Config Server      `8888`
+
+Currency-Exchange               `8000,8001...`
+
+Currency-Conversion             `8100,8101...`
