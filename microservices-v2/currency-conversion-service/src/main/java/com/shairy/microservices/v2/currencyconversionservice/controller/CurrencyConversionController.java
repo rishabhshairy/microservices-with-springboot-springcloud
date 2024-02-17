@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shairy.microservices.v2.currencyconversionservice.config.CurrencyExchangeProxy;
 import com.shairy.microservices.v2.currencyconversionservice.model.CurrencyConversion;
 
 /**
@@ -19,11 +20,17 @@ import com.shairy.microservices.v2.currencyconversionservice.model.CurrencyConve
 public class CurrencyConversionController {
 
 	@Autowired
+	CurrencyExchangeProxy proxy;
+
+	@Autowired
 	private Environment env;
 
 	@GetMapping("/currency-conversion/from/{from}/to/{to}/quantity/{quantity}")
-	public CurrencyConversion calculate(@PathVariable String from, @PathVariable String to,
+	public CurrencyConversion getExchangedValue(@PathVariable String from, @PathVariable String to,
 			@PathVariable BigDecimal quantity) {
-		return new CurrencyConversion(10001L, from, to, quantity, BigDecimal.ONE, BigDecimal.ONE, "");
+		CurrencyConversion currencyConversion = proxy.getExchangeValue(from, to);
+		return new CurrencyConversion(currencyConversion.getId(), currencyConversion.getFrom(),
+				currencyConversion.getTo(), quantity, currencyConversion.getConversionMultiple(),
+				quantity.multiply(currencyConversion.getConversionMultiple()), currencyConversion.getEnvironment() + ":feign");
 	}
 }
