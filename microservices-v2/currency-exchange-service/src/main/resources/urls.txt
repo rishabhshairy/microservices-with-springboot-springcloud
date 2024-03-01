@@ -38,3 +38,19 @@ Custom Routes --> when custom route builder function is used --> this is more ea
 - http://localhost:8765/currency-conversion-feign/from/USD/to/INR/quantity/10
 
 - http://localhost:8765/currency-conversion-new/from/USD/to/INR/quantity/10
+
+
+Building docker images:
+
+spring-boot:build-image -DskipTests
+
+Docker Images:
+
+'docker.io/rishabhshairy/nmsv2-naming-server:0.0.1-SNAPSHOT'
+
+'docker.io/rishabhshairy/nmsv2-apigateway-service:0.0.1-SNAPSHOT'
+
+'docker.io/rishabhshairy/nmsv2-currency-conversion-service:0.0.1-SNAPSHOT'
+
+'docker.io/rishabhshairy/nmsv2-currency-exchange-service:0.0.1-SNAPSHOT'
+
