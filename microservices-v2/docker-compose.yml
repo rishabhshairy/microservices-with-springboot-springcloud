@@ -1,0 +1,61 @@
+version: '3.7'
+
+services:
+  naming-server:
+    image: rishabhshairy/nmsv2-naming-server:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8761:8761"
+    networks:
+      - naming-network
+      
+  apigateway-service:
+    image: rishabhshairy/nmsv2-apigateway-service:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8765:8765"
+    networks:
+      - naming-network
+    depends_on:
+      - naming-server
+    environment:
+      - EUREKA.CLIENT.SERVICE-URL.DEFAULTZONE=http://naming-server:8761/eureka
+      - SPRING.ZIPKIN.BASEURL=http://zipkin-server:9411/
+      
+  currency-conversion:
+    image: rishabhshairy/nmsv2-currency-conversion-service:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8100:8100"
+    networks:
+      - naming-network
+    depends_on:
+      - naming-server
+    environment:
+      - EUREKA.CLIENT.SERVICE-URL.DEFAULTZONE=http://naming-server:8761/eureka
+      - SPRING.ZIPKIN.BASEURL=http://zipkin-server:9411/
+      
+  currency-exchange:
+    image: rishabhshairy/nmsv2-currency-exchange-service:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8000:8000"
+    networks:
+      - naming-network
+    depends_on:
+      - naming-server
+    environment:
+      - EUREKA.CLIENT.SERVICE-URL.DEFAULTZONE=http://naming-server:8761/eureka
+      - SPRING.ZIPKIN.BASEURL=http://zipkin-server:9411/
+
+  zipkin-server:
+    image: openzipkin/zipkin:latest
+    mem_limit: 300m
+    ports:
+      - "9411:9411"
+    networks:
+      - naming-network
+    restart: always
+      
+networks:
+  naming-network:
